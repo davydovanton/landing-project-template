@@ -17,3 +17,9 @@ gem 'dotenv'
 gem 'rake'
 
 gem 'dry-monads'
+
+group :test do
+  # 0.18.x breaks codacy result parser
+  gem 'simplecov', '0.17.1', require: false, platforms: :ruby
+  gem 'rspec'
+end
