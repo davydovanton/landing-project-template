@@ -7,6 +7,8 @@ App.boot(:rom) do |app|
     require "rom-repository"
 
     container = ROM.container(:sql, ENV['DATABASE_URL']) do |configuration|
+      configuration.gateways[:default].use_logger(Logger.new($stdout))
+
       # configuration.relation(:subscribers) do
       #   schema(infer: true)
       #   auto_struct true
