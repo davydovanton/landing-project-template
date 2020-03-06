@@ -1,6 +1,4 @@
-module WriteModel
-  module Entities
-    class Subscriber < ROM::Struct
-    end
+module Entities
+  class Subscriber < ROM::Struct
   end
 end

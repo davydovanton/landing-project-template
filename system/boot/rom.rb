@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
+
 App.boot(:rom) do |app|
   init do
     require "rom"
     require "rom-sql"
     require "rom-repository"
 
-    container = ROM.container(:sql, ENV['DATABASE_URL']) do |configuration|
-      configuration.gateways[:default].use_logger(Logger.new($stdout))
+    config = ROM::Configuration.new(:sql, ENV['DATABASE_URL'], extensions: [:pg_json])
+    config.auto_registration(app.root + "lib/relations")
 
-      # configuration.relation(:subscribers) do
-      #   schema(infer: true)
-      #   auto_struct true
-      # end
+    container = ROM.container(config) do |configuration|
+      configuration.gateways[:default].use_logger(Logger.new($stdout))
     end
 
     register(:rom, container)
